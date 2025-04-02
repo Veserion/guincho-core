@@ -1,0 +1,29 @@
+{
+  "strategy_name": "MACDVolumeScalper",
+  "params": {
+    "roi": {
+      "0": 1
+    },
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "buy_macd_fast": 13,
+      "buy_macd_slow": 27,
+      "buy_volume_window": 27
+    },
+    "sell": {},
+    "protection": {},
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.349,
+      "trailing_stop_positive_offset": 0.371,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-21 06:57:04.103734+00:00"
+}

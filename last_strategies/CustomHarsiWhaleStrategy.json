@@ -1,0 +1,36 @@
+{
+  "strategy_name": "CustomHarsiWhaleStrategy",
+  "params": {
+    "roi": {
+      "0": 0.02
+    },
+    "stoploss": {
+      "stoploss": -0.1
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.01,
+      "trailing_stop_positive_offset": 0.015,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 5
+    },
+    "buy": {
+      "buy_adx_enabled": false,
+      "buy_adx_threshold": 19,
+      "buy_conditions_required": 8,
+      "buy_ema_length": 29,
+      "buy_rsi_length": 19,
+      "buy_rsi_threshold": 40,
+      "buy_stoch_k": 26,
+      "buy_stoch_threshold": 33,
+      "buy_volume_enabled": true,
+      "buy_vortex_enabled": false
+    },
+    "sell": {},
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-17 01:40:02.225891+00:00"
+}

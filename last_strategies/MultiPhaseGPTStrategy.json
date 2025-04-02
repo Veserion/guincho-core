@@ -1,0 +1,47 @@
+{
+  "strategy_name": "MultiPhaseGPTStrategy",
+  "params": {
+    "roi": {},
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "adx_threshold": 20,
+      "atr_multiplier": 1.339,
+      "atr_period": 23,
+      "bollinger_dev": 2.5,
+      "bollinger_period": 27,
+      "ema_fast_length": 13,
+      "ema_slow_length": 15,
+      "rsi_buy_level": 31,
+      "rsi_high": 81,
+      "rsi_low": 26,
+      "sar_acceleration": 0.012,
+      "sar_maximum": 0.184,
+      "sma_length": 166,
+      "use_dmi": true,
+      "use_ema_fast_slow": false,
+      "use_ha_trend": false,
+      "use_macd": true,
+      "use_rsi": true,
+      "use_sar": true,
+      "use_volume": true,
+      "volume_multiplier": 1.418
+    },
+    "sell": {
+      "trailing_stop_loss": 0.022
+    },
+    "protection": {},
+    "stoploss": {
+      "stoploss": -0.039
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-28 07:43:11.456661+00:00"
+}

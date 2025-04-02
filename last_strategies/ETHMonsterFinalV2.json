@@ -1,0 +1,42 @@
+{
+  "strategy_name": "ETHMonsterFinalV2",
+  "params": {
+    "roi": {},
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "adx_threshold": 28,
+      "ema_fast_length": 16,
+      "ema_slow_length": 37,
+      "rsi_high": 81,
+      "rsi_low": 20,
+      "sar_acceleration": 0.014,
+      "sar_maximum": 0.273,
+      "use_adx": false,
+      "use_dmi": true,
+      "use_ema_fast_slow": true,
+      "use_ha_trend": false,
+      "use_macd": false,
+      "use_rsi": false,
+      "use_sar": false,
+      "use_volume": false,
+      "volume_multiplier": 0.783
+    },
+    "sell": {
+      "trailing_stop_loss": 0.07
+    },
+    "protection": {},
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.011,
+      "trailing_stop_positive_offset": 0.037,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-03-03 03:40:22.983109+00:00"
+}

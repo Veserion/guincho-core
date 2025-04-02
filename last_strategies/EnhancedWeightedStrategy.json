@@ -1,0 +1,35 @@
+{
+  "strategy_name": "EnhancedWeightedStrategy",
+  "params": {
+    "roi": {
+      "0": 1
+    },
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02,
+      "trailing_stop_positive_offset": 0.04,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "atr_period": 46,
+      "bb_period": 34,
+      "norm_window": 188,
+      "obv_ema_period": 45,
+      "threshold_multiplier": 1.356,
+      "threshold_period": 5,
+      "trend_weight": 0.156,
+      "volatility_weight": 0.854,
+      "volume_weight": 0.272
+    },
+    "sell": {},
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-03-07 08:47:08.962885+00:00"
+}

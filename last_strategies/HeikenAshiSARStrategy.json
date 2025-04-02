@@ -1,0 +1,35 @@
+{
+  "strategy_name": "HeikenAshiSARStrategy",
+  "params": {
+    "roi": {
+      "0": 1
+    },
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "adx_length": 28,
+      "adx_threshold": 25.431,
+      "ha_length": 27,
+      "ha_smoothing": 6,
+      "sar_acceleration": 0.069,
+      "sar_maximum": 0.245,
+      "use_trend_strength": true
+    },
+    "sell": {
+      "trailing_stop_loss": 0.1
+    },
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-27 07:36:06.012040+00:00"
+}

@@ -1,0 +1,36 @@
+{
+  "strategy_name": "MLEnhancedStrategy",
+  "params": {
+    "roi": {},
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.005,
+      "trailing_stop_positive_offset": 0.01,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "atr_period": 18,
+      "bollinger_period": 16,
+      "ema20_period": 14,
+      "learning_period": 50,
+      "lookahead_period": 4,
+      "rsi_period": 24,
+      "target_profit": 0.006,
+      "threshold": 0.654,
+      "train_window": 306,
+      "xgb_learning_rate": 0.03,
+      "xgb_max_depth": 10,
+      "xgb_subsample": 0.964
+    },
+    "sell": {},
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-03-12 11:58:18.296290+00:00"
+}

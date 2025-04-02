@@ -1,0 +1,30 @@
+{
+  "strategy_name": "ScalpStrategy",
+  "params": {
+    "roi": {
+      "0": 1
+    },
+    "stoploss": {
+      "stoploss": -0.04
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "buy_adx": 11,
+      "buy_rsi": 24
+    },
+    "sell": {
+      "sell_rsi": 90
+    },
+    "protection": {},
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.35,
+      "trailing_stop_positive_offset": 0.431,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-21 07:05:57.634342+00:00"
+}

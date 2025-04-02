@@ -1,0 +1,32 @@
+{
+  "strategy_name": "WeightedStrategy",
+  "params": {
+    "roi": {
+      "0": 1
+    },
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02,
+      "trailing_stop_positive_offset": 0.04,
+      "trailing_only_offset_is_reached": true
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "bb_weight": 0.4,
+      "buy_threshold": 0.65,
+      "macd_weight": 0.66,
+      "mfi_weight": 0.76,
+      "obv_weight": 0.95,
+      "stoch_weight": 0.66
+    },
+    "sell": {},
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-03-07 06:04:10.922792+00:00"
+}

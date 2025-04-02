@@ -1,0 +1,30 @@
+{
+  "strategy_name": "MACrossEMAStrategy",
+  "params": {
+    "roi": {
+      "0": 1
+    },
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "ema_period": 8,
+      "ma_period": 9,
+      "rsi_delta_threshold": 1.2,
+      "rsi_period": 11
+    },
+    "sell": {},
+    "protection": {},
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.328,
+      "trailing_stop_positive_offset": 0.38,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-25 03:29:12.380681+00:00"
+}

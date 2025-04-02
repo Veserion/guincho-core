@@ -1,0 +1,41 @@
+{
+  "strategy_name": "HARSIWhaleStrategy",
+  "params": {
+    "roi": {
+      "0": 1
+    },
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02,
+      "trailing_stop_positive_offset": 0.03,
+      "trailing_only_offset_is_reached": true
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "harsi_length": 17,
+      "harsi_smoothing": 1,
+      "ob_extreme": 39.578,
+      "ob_level": 10.059,
+      "os_extreme": -38.197,
+      "os_level": -35.342,
+      "rsi_period": 48,
+      "stoch_overbought": 63.284,
+      "stoch_oversold": 29.02,
+      "stoch_period": 30,
+      "stoch_scaling": 98.526,
+      "stoch_smooth_d": 7,
+      "stoch_smooth_k": 4,
+      "use_rsi": false,
+      "use_stoch": false
+    },
+    "sell": {},
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-24 04:13:43.320521+00:00"
+}

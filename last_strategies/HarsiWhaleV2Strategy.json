@@ -1,0 +1,36 @@
+{
+  "strategy_name": "HarsiWhaleV2Strategy",
+  "params": {
+    "roi": {},
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "adx_enabled": false,
+      "adx_threshold": 37,
+      "ema_enabled": false,
+      "ema_length": 41,
+      "min_confirmations": 3,
+      "rsi_threshold": 42,
+      "stoch_d": 15,
+      "stoch_k": 14,
+      "volume_osc_enabled": false,
+      "vortex_enabled": false
+    },
+    "sell": {
+      "trailing_stop_loss": 0.08
+    },
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-26 13:19:55.967951+00:00"
+}

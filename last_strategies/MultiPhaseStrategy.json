@@ -1,0 +1,39 @@
+{
+  "strategy_name": "MultiPhaseStrategy",
+  "params": {
+    "roi": {},
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "ema_fast_length": 19,
+      "ema_slow_length": 36,
+      "range_atr_multiplier": 2.753,
+      "range_atr_period": 28,
+      "range_bollinger_dev": 2.369,
+      "range_bollinger_period": 49,
+      "range_rsi_buy_level": 40,
+      "range_rsi_period": 19,
+      "rsi_buy_level": 29,
+      "rsi_high": 87,
+      "rsi_low": 25,
+      "sma_length": 133,
+      "volume_multiplier": 0.558
+    },
+    "sell": {
+      "trailing_stop_loss": 0.095
+    },
+    "protection": {},
+    "stoploss": {
+      "stoploss": -0.02
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-02-28 15:56:11.267764+00:00"
+}

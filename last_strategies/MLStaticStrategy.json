@@ -1,0 +1,30 @@
+{
+  "strategy_name": "MLStaticStrategy",
+  "params": {
+    "roi": {},
+    "stoploss": {
+      "stoploss": -0.1
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.005,
+      "trailing_stop_positive_offset": 0.01,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "lookahead_period": 5,
+      "target_profit": 0.009,
+      "threshold": 0.639,
+      "xgb_learning_rate": 0.182,
+      "xgb_max_depth": 4,
+      "xgb_subsample": 0.666
+    },
+    "sell": {},
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-03-13 16:11:32.152439+00:00"
+}

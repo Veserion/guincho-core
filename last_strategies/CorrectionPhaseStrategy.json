@@ -1,0 +1,32 @@
+{
+  "strategy_name": "CorrectionPhaseStrategy",
+  "params": {
+    "roi": {},
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02,
+      "trailing_stop_positive_offset": 0.03,
+      "trailing_only_offset_is_reached": true
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "adx_threshold": 21,
+      "bbands_period": 10,
+      "ema_period": 180,
+      "fib_high": 0.693,
+      "fib_low": 0.327,
+      "rsi_delta_threshold": 1.781,
+      "rsi_period": 6,
+      "rsi_value": 40
+    },
+    "sell": {},
+    "protection": {}
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-03-03 04:09:32.484863+00:00"
+}

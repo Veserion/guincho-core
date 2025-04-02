@@ -1,0 +1,33 @@
+{
+  "strategy_name": "HeikinAshiADXSuperpositionStrategy",
+  "params": {
+    "roi": {},
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "adx_threshold": 34,
+      "adx_weight": 0.8407473089301462,
+      "bb_weight": 0.674036124415237,
+      "ema_period": 112,
+      "ha_weight": 0.607128987907524,
+      "macd_weight": 0.8715782102349943,
+      "rsi_threshold": 9,
+      "rsi_weight": 0.524073407146115,
+      "threshold": 0.6621756526159236
+    },
+    "sell": {},
+    "protection": {},
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.153,
+      "trailing_stop_positive_offset": 0.163,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-03-06 21:21:02.818255+00:00"
+}
