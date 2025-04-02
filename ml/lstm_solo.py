@@ -1,3 +1,4 @@
+from keras.src.callbacks import ReduceLROnPlateau, EarlyStopping
 from keras.src.saving import load_model
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report
@@ -24,13 +25,18 @@ if os.path.exists(LSTM_MODEL_PATH):
     print("Модель LSTM загружена из файла.")
 else:
     lstm_model = build_lstm_model(TIME_STEPS, len(features))
+    callbacks = [
+        ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=3, verbose=1, min_lr=1e-6),
+        EarlyStopping(monitor="val_loss", patience=3, restore_best_weights=True)
+    ]
     lstm_model.fit(
         X_train,
         y_train,
         validation_data=(X_val, y_val),
         epochs=EPOCHS,
         batch_size=64,
-        class_weight=class_weight_dict
+        class_weight=class_weight_dict,
+        callbacks=callbacks
     )
     lstm_model.save(LSTM_MODEL_PATH)
     print("Модель LSTM обучена и сохранена в файл.")

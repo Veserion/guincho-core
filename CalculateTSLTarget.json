@@ -9,19 +9,19 @@
       "max_open_trades": 1
     },
     "buy": {
-      "lookahead_period": 6,
-      "max_drawdown": 0.324,
-      "threshold_up": 0.025
+      "lookahead_period": 17,
+      "max_drawdown": 0.013,
+      "threshold_up": 0.01
     },
     "sell": {},
     "protection": {},
     "trailing": {
       "trailing_stop": true,
-      "trailing_stop_positive": 0.01,
-      "trailing_stop_positive_offset": 0.027000000000000003,
-      "trailing_only_offset_is_reached": false
+      "trailing_stop_positive": 0.011,
+      "trailing_stop_positive_offset": 0.013,
+      "trailing_only_offset_is_reached": true
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2025-03-30 02:08:01.991923+00:00"
+  "export_time": "2025-04-02 15:41:43.193226+00:00"
 }

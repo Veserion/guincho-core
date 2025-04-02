@@ -1,16 +1,15 @@
 import numpy as np
 from keras.src.callbacks import ReduceLROnPlateau, EarlyStopping
 from keras.src.saving import load_model
-from matplotlib import pyplot as plt
-from sklearn.metrics import confusion_matrix, classification_report
-import seaborn as sns
+from sklearn.metrics import classification_report
+
 
 from data_loader import load_data, split_data
 from models.transformer import build_transformer_model
 from models.lstm_autoencoder import build_lstm_autoencoder_model, build_lstm_extractor
 from models.xgboost_model import train_xgboost
 from config import TIME_STEPS, TRANSFORMER_MODEL_PATH, EPOCHS, LSTM_AUTOENCODER_MODEL_PATH
-from utils import create_sequences, get_weights, adjust_predictions
+from utils import create_sequences, get_weights, adjust_predictions, plot_confusion_matrix
 import os
 
 # 1. Загрузка и подготовка данных
@@ -84,38 +83,29 @@ transformer_acc = transformer_model.evaluate(X_test, y_test)[1]
 xgb_acc = xgb_model.score(X_test_embedded, y_test)
 
 print(f"Transformer Accuracy: {transformer_acc}")
-# print(f"LSTM Accuracy: {lstm_acc}")
 print(f"XGBoost Accuracy: {xgb_acc}")
 
 # 8. Матрица ошибок и отчеты о классификации
 
-def plot_confusion_matrix(y_true, y_pred, title="Confusion Matrix"):
-    cm = confusion_matrix(y_true, y_pred)
-    plt.figure(figsize=(6, 6))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["0", "1"], yticklabels=["0", "1"])
-    plt.xlabel("Predicted")
-    plt.ylabel("Actual")
-    plt.title(title)
-    plt.show()
-
 # Предсказания Transformer
 y_pred_transformer = (transformer_model.predict(X_test) >= 0.5).astype(int).flatten()
 print("Transformer:")
+print(f'X_test.shape {X_test.shape}')
 print(classification_report(y_test, y_pred_transformer))
-plot_confusion_matrix(y_test, y_pred_transformer, title="Transformer Confusion Matrix")
+plot_confusion_matrix(y_test, y_pred_transformer, title="Transformer")
 
 
 print("Transformer adjust_predictions:")
 y_pred_transformer = adjust_predictions(y_test, y_pred_transformer)
 print(classification_report(y_test, y_pred_transformer))
-plot_confusion_matrix(y_test, y_pred_transformer, title="Transformer Confusion Matrix")
+plot_confusion_matrix(y_test, y_pred_transformer, title="Transformer adjust_predictions")
 
 # Предсказания LSTM + XGBoost
 y_pred_lstm = (lstm_model.predict(X_test) >= 0.5).astype(int).flatten()
 y_pred_xgb = xgb_model.predict(X_test_embedded)
 
 print("LSTM + XGBoost Classification Report:")
-print(classification_report(y_test, y_pred_xgb))
+print(classification_report(y_test, adjust_predictions(y_test, y_pred_xgb)))
 plot_confusion_matrix(y_test, y_pred_xgb, title="LSTM + XGBoost Confusion Matrix")
 
 

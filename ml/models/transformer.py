@@ -1,24 +1,38 @@
 import numpy as np
 import tensorflow as tf
+from keras.src.saving import register_keras_serializable
 from tensorflow.keras import Model, Input
 from tensorflow.keras.layers import Dense, Dropout, LayerNormalization, MultiHeadAttention, GlobalAveragePooling1D
 from tensorflow.keras.optimizers import AdamW
 
 
-@tf.keras.utils.register_keras_serializable()
+@register_keras_serializable(package="Custom")
 class PositionalEncoding(tf.keras.layers.Layer):
     def __init__(self, sequence_length, d_model, **kwargs):
         super().__init__(**kwargs)
         self.sequence_length = sequence_length
         self.d_model = d_model
+        self.pos_encoding = self.positional_encoding()
 
-    def call(self, x):
-        position = np.arange(self.sequence_length)[:, np.newaxis]
-        div_term = np.exp(np.arange(0, self.d_model, 2) * -(np.log(10000.0) / self.d_model))
-        pe = np.zeros((self.sequence_length, self.d_model))
-        pe[:, 0::2] = np.sin(position * div_term)
-        pe[:, 1::2] = np.cos(position * div_term)
-        return x + tf.convert_to_tensor(pe, dtype=tf.float32)
+    def get_config(self):
+        config = super().get_config()
+        config.update({
+            "sequence_length": self.sequence_length,
+            "d_model": self.d_model
+        })
+        return config
+
+    def positional_encoding(self):
+        # Функция генерации позиций
+        angle_rads = np.arange(self.sequence_length)[:, np.newaxis] / np.power(
+            10000, (2 * (np.arange(self.d_model)[np.newaxis, :] // 2)) / np.float32(self.d_model)
+        )
+        angle_rads[:, 0::2] = np.sin(angle_rads[:, 0::2])
+        angle_rads[:, 1::2] = np.cos(angle_rads[:, 1::2])
+        return tf.convert_to_tensor(angle_rads, dtype=tf.float32)
+
+    def call(self, inputs):
+        return inputs + self.pos_encoding[: tf.shape(inputs)[1], :]
 
 
 def transformer_block(x, num_heads=16, key_dim=64, ff_dim=256):

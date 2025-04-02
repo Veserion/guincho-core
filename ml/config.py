@@ -1,6 +1,6 @@
 DATA_PATH = "user_data/csv/NEAR_USDT_binary_tsl.csv"
 TIME_STEPS = 50
-TRAIN_SPLIT = 0.5
+TRAIN_SPLIT = 0.65
 VAL_SPLIT = 0.15
 EPOCHS = 20
 LSTM_AUTOENCODER_MODEL_PATH = "user_data/strategies/ml/lstm_autoencoder_model.keras"

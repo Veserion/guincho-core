@@ -21,9 +21,8 @@ def build_lstm_model(time_steps, len_features):
         Dense(16, activation='relu', kernel_regularizer=l2(0.01)),
         Dense(1, activation='sigmoid')  # Бинарный выход
     ])
-    lr_schedule = ExponentialDecay(0.001, decay_steps=10000, decay_rate=0.9)
     model.compile(
-        optimizer=AdamW(learning_rate=lr_schedule),
+        optimizer=AdamW(learning_rate=0.001),
         loss='binary_crossentropy',
         metrics=['accuracy', Recall()]
     )
