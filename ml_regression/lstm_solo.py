@@ -2,8 +2,7 @@ import numpy as np
 from keras.src.callbacks import ReduceLROnPlateau, EarlyStopping
 from keras.src.saving import load_model
 from matplotlib import pyplot as plt
-from sklearn.metrics import confusion_matrix, classification_report, mean_absolute_error, mean_squared_error, r2_score
-import seaborn as sns
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 from data_loader import load_data, split_data
 from models.lstm import build_lstm_model
@@ -27,7 +26,7 @@ else:
     lstm_model = build_lstm_model(TIME_STEPS, len(features))
 
     callbacks = [
-        ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=3, min_lr=1e-6),
+        ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=2, min_lr=1e-6),
         EarlyStopping(monitor="val_loss", patience=3, restore_best_weights=True)
     ]
     lstm_model.fit(
@@ -38,8 +37,9 @@ else:
         batch_size=64,
         callbacks=callbacks
     )
-    lstm_model.save(LSTM_MODEL_PATH)
-    print("Модель LSTM обучена и сохранена в файл.")
+
+lstm_model.save(LSTM_MODEL_PATH)
+print("Модель LSTM обучена и сохранена в файл.")
 
 y_pred = lstm_model.predict(X_test)
 
@@ -58,9 +58,9 @@ print(f"R²   (R-squared):                {r2:.6f}")
 close_test = test_df['truth_close'].values[TIME_STEPS:]
 
 plt.figure(figsize=(14, 6))
-plt.plot(close_test[:100], label='Close', color='gray', linewidth=1)
+plt.plot(close_test, label='Close', color='gray', linewidth=1)
 # plt.plot(y_test, label='Target', linewidth=1)
-plt.plot(y_pred[:100], label='Predicted', linewidth=1)
+plt.plot(y_pred, label='Predicted', linewidth=1)
 plt.title('LSTM Prediction vs Target vs Close on Test Set')
 plt.xlabel('Samples')
 plt.ylabel('Value')

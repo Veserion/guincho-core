@@ -51,8 +51,9 @@ print(f"R²   (R-squared):                {r2:.6f}")
 close_test = test_df['truth_close'].values[TIME_STEPS:]
 
 plt.figure(figsize=(14, 6))
-plt.plot(close_test[:100], label='Close', color='gray', linewidth=1)
-plt.plot(y_pred[:100], label='Predicted', linewidth=1)
+plt.plot(close_test[:200], label='Close', color='gray', linewidth=1)
+plt.plot(y_test[:200], label='Target', linewidth=1)
+plt.plot(y_pred[:200], label='Predicted', linewidth=1)
 plt.title('XGBoost Prediction vs Close on Test Set')
 plt.xlabel('Samples')
 plt.ylabel('Value')

@@ -134,11 +134,13 @@ class CalculateRegressionTarget(IStrategy):
         # Изменение цены через n свечей
         window = 10  # SMA10
         future_half = 5  # 5 свечей в будущее
-        past_half = 5  # 5 свечей из прошлого
 
         # SMA10 = среднее по 10 свечам: 5 прошлых + 5 будущих
-        dataframe['target'] = dataframe['close'].rolling(window=window, center=True, min_periods=1).mean().shift(
-            -future_half)
+        # dataframe['target'] = dataframe['close'].rolling(window=window, center=True, min_periods=1).mean().shift(
+        #     -future_half)
+        new_df = dataframe.copy()
+        dataframe['target'] = ta.EMA(new_df['close'].shift(-5), timeperiod=10)
+
         dataframe = dataframe.dropna(subset=['target'])
 
         dataframe.to_csv(f"user_data/csv/{metadata['pair'].replace('/', '_')}_regression_tsl.csv", index=False)

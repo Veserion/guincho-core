@@ -15,7 +15,7 @@ XGB_MODEL_PATH = "user_data/strategies/ml_regression/xgb_model.json"
 #     # 'subsample': [0.6],
 #     # 'colsample_bytree': [0.8]
 # }
-param_grid = {'colsample_bytree': [0.8], 'learning_rate': [0.1], 'max_depth': [6], 'n_estimators': [500], 'subsample': [0.5]}
+param_grid = {'colsample_bytree': [0.8], 'learning_rate': [0.05], 'max_depth': [9], 'n_estimators': [500], 'subsample': [0.8]}
 
 def train_xgboost(X_train, y_train, X_val, y_val):
     grid = GridSearchCV(

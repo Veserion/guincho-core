@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import RobustScaler
-from sklearn.utils import compute_class_weight
 
 from config import DATA_PATH, TIME_STEPS, TRAIN_SPLIT, VAL_SPLIT, TIMEFRAME
 
@@ -25,17 +24,18 @@ features = [
 
 timeframe_map = {
     "1m": 1440,  # 1440 минут в дне
-    "5m": 288,   # 288 пятиминутных свечей в дне
-    "15m": 96,   # 96 свечей 15m в дне
-    "30m": 48,   # 48 свечей 30m в дне
-    "1h": 24,    # 24 свечи 1h в дне
-    "4h": 6,     # 6 свечей 4h в дне
-    "1d": 1      # 1 свеча 1d в дне
+    "5m": 288,  # 288 пятиминутных свечей в дне
+    "15m": 96,  # 96 свечей 15m в дне
+    "30m": 48,  # 48 свечей 30m в дне
+    "1h": 24,  # 24 свечи 1h в дне
+    "4h": 6,  # 6 свечей 4h в дне
+    "1d": 1  # 1 свеча 1d в дне
 }
+
 
 def load_data():
     bars_per_day = timeframe_map.get(TIMEFRAME, 1)
-    cut_length = 7*bars_per_day if 7*bars_per_day > 200 else 200
+    cut_length = 7 * bars_per_day if 7 * bars_per_day > 200 else 200
 
     df = pd.read_csv(DATA_PATH)
     df['date'] = pd.to_datetime(df['date'])
@@ -51,7 +51,6 @@ def load_data():
 def split_data(df):
     train_size = int(len(df) * TRAIN_SPLIT)
     val_size = int(len(df) * VAL_SPLIT)
-    # test_size = int(len(df) - train_size - val_size)
 
     train_df = df[:train_size]
     val_df = df[train_size:train_size + val_size]
