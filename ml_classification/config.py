@@ -1,0 +1,9 @@
+DATA_PATH = "user_data/csv/NEAR_USDT_binary_tsl.csv"
+TIME_STEPS = 50
+TRAIN_SPLIT = 0.65
+VAL_SPLIT = 0.15
+EPOCHS = 200
+LSTM_AUTOENCODER_MODEL_PATH = "user_data/strategies/ml_classification/lstm_autoencoder_model.keras"
+LSTM_MODEL_PATH = "user_data/strategies/ml_classification/lstm_model.keras"
+TRANSFORMER_MODEL_PATH = "user_data/strategies/ml_classification/transformer_model.keras"
+TIMEFRAME = '15m'

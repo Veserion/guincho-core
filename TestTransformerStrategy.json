@@ -1,0 +1,29 @@
+{
+  "strategy_name": "TestTransformerStrategy",
+  "params": {
+    "roi": {},
+    "stoploss": {
+      "stoploss": -0.02
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "btc_corr_filter": 0.648,
+      "rsi_high": 85,
+      "rsi_low": 19,
+      "volatility_filter": 0.089,
+      "volume_sma": 21
+    },
+    "sell": {},
+    "protection": {},
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02,
+      "trailing_stop_positive_offset": 0.03,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2025-04-03 14:13:33.229900+00:00"
+}

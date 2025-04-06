@@ -5,8 +5,9 @@ import logging
 from keras.src.saving import load_model
 
 # from ml.data_loader import features
-from ml.config import TIME_STEPS
-from ml.models.transformer import PositionalEncoding
+from ml_classification.config import TIME_STEPS
+from ml_classification.models.transformer import PositionalEncoding
+from ml_classification.utils import create_predict_sequences
 from utils.indicators import get_indicators, timeframe_map
 
 from freqtrade.strategy import IStrategy, DecimalParameter, IntParameter
@@ -34,16 +35,20 @@ def get_last_sequence(dataframe, current_index):
 
 class TestTransformerStrategy(IStrategy):
     timeframe = '1h'
-    stoploss = -0.05
-
-    threshold_up = DecimalParameter(0.01, 0.05, default=0.03, space='buy')
-
-    lookahead_period = IntParameter(1, 20, default=10, space='buy')
-    max_drawdown = DecimalParameter(0.01, 0.5, default=0.03, space='buy')
+    stoploss = -0.02
 
     trailing_stop = True
+    trailing_stop_positive = 0.011
+    trailing_stop_positive_offset = 0.013
+    trailing_only_offset_is_reached = True
 
-    model = load_model('user_data/strategies/ml/lstm_model.keras', custom_objects={"PositionalEncoding": PositionalEncoding})
+    btc_corr_filter = DecimalParameter(0.1, 0.9, default=0.03, space='buy')
+    volatility_filter = DecimalParameter(0.01, 0.1, default=0.03, space='buy')
+    volume_sma = IntParameter(5, 50, default=10, space='buy')
+    rsi_low = IntParameter(5, 50, default=30, space='buy')
+    rsi_high = IntParameter(50, 90, default=70, space='buy')
+
+    model = load_model('user_data/strategies/ml_classification/lstm_model.keras', custom_objects={"PositionalEncoding": PositionalEncoding})
     def populate_indicators(self, dataframe: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         dataframe = get_indicators(dataframe, self.timeframe)
 
@@ -61,40 +66,46 @@ class TestTransformerStrategy(IStrategy):
 
         # 1️⃣ Фильтрация по тренду (EMA-200)
         dataframe["ema_200"] = dataframe["close"].ewm(span=200, adjust=False).mean()
-        dataframe["trend_filter"] = dataframe["close"] > dataframe["ema_200"]
+        dataframe["trend_filter"] = dataframe["close"] > dataframe["ema10"]
 
-        dataframe["volatility_filter"] = dataframe["atr"] > dataframe["close"] * 0.01  # ATR > 1% от цены
+        dataframe["volatility_filter"] = dataframe["atr"] > dataframe["close"] * self.volatility_filter.value  # ATR > 1% от цены
 
         # 3️⃣ Фильтрация по объёму (SMA-Volume)
-        dataframe["volume_sma"] = dataframe["volume"].rolling(20).mean()
+        dataframe["volume_sma"] = dataframe["volume"].rolling(self.volume_sma.value).mean()
         dataframe["volume_filter"] = dataframe["volume"] > dataframe["volume_sma"]
 
         # 4️⃣ RSI (избегаем перекупленности)
-        dataframe["rsi_filter"] = (dataframe["rsi"] > 30) & (dataframe["rsi"] < 70)
+        dataframe["rsi_filter"] = (dataframe["rsi"] > self.rsi_low.value) & (dataframe["rsi"] < self.rsi_high.value)
 
         # 5️⃣ Корреляция с BTC (избегаем слабой связи)
-        dataframe["btc_corr_filter"] = dataframe["close_btc_corr"] > 0.3
+        dataframe["btc_corr_filter"] = dataframe["close_btc_corr"] > self.btc_corr_filter.value
 
-        ml_signals = []
+        # for index in range(len(dataframe)):
+        #     sequence = get_last_sequence(dataframe, index)
+        #     sequence = np.expand_dims(sequence, axis=0)  # Добавляем размерность batch_size
+        #     sequence = sequence.astype(np.float32)
+        #
+        #     prediction = (self.model.predict(sequence, verbose=0) >= 0.5).astype(int).flatten()[0]  # Предсказание
+        #     ml_signals.append(prediction)
 
-        for index in range(len(dataframe)):
-            sequence = get_last_sequence(dataframe, index)
-            sequence = np.expand_dims(sequence, axis=0)  # Добавляем размерность batch_size
-            sequence = sequence.astype(np.float32)
+        sequences = create_predict_sequences(dataframe[features], TIME_STEPS)
+        predictions = (self.model.predict(sequences, verbose=0) >= 0.5).astype(int).flatten()
 
-            prediction = (self.model.predict(sequence) >= 0.5).astype(int).flatten()[0]  # Предсказание
-            ml_signals.append(prediction)
+        # Добавляем NaN в начале, чтобы длина совпала с dataframe
+        nan_padding = [np.nan] * TIME_STEPS
+        predictions = np.concatenate((nan_padding, predictions))
 
-        dataframe["ml_signal"] = ml_signals
+        dataframe["ml_signal"] = predictions
 
         # 🎯 Окончательный сигнал на покупку
         dataframe.loc[
-            (dataframe["ml_signal"] == 1) &
+            (dataframe["ml_signal"] == 1 &
+            (dataframe['close'] > dataframe['ema10']) &
             (dataframe["trend_filter"]) &
             (dataframe["volatility_filter"]) &
             (dataframe["volume_filter"]) &
             (dataframe["rsi_filter"]) &
-            (dataframe["btc_corr_filter"]),
+            (dataframe["btc_corr_filter"])),
             "buy"
         ] = 1
 
